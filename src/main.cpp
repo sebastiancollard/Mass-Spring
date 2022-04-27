@@ -71,12 +71,12 @@ int main(void) {
   auto point_renders = createInstancedRenderable(point_geometry, point_style);
 
   // this assigns the new model
-  auto defaultModel = std::make_unique<SmallAnglePendulumModel>();
+  auto defaultModel = std::make_unique<MassSpring3Model>();
   auto modelRenderable = makeModelRenderable(*defaultModel, view);
   std::unique_ptr<Model> model = std::move(defaultModel);
 
   bool multSteps = false;
-  bool multSteps3 = false;
+  bool multSteps3 = true;
   //
   // main loop
   //
@@ -87,15 +87,14 @@ int main(void) {
     if (panel::resetView) {
       view.camera.reset();
     }
-
-    if (panel::loadPendulumModel) {
-      auto newModel = std::make_unique<SmallAnglePendulumModel>();
-      modelRenderable = makeModelRenderable(*newModel, view);
-      model = std::move(newModel);
-      panel::playModel = false;
-      multSteps = false;
-      multSteps3 = false;
-    }
+    //if (panel::loadPendulumModel) {
+    //  auto newModel = std::make_unique<SmallAnglePendulumModel>();
+    //  modelRenderable = makeModelRenderable(*newModel, view);
+    //  model = std::move(newModel);
+    //  panel::playModel = false;
+    //  multSteps = false;
+    //  multSteps3 = false;
+    //}
     if (panel::loadDoublePendulumModel) {
       auto newModel = std::make_unique<DoublePendulumModel>();
       modelRenderable = makeModelRenderable(*newModel, view);
@@ -103,15 +102,16 @@ int main(void) {
       panel::playModel = false;
       multSteps = false;
       multSteps3 = false;
+      panel::dt = 0.02f;
     }
-    if (panel::loadParticleModel) {
-      auto newModel = std::make_unique<ParticleModel>();
-      modelRenderable = makeModelRenderable(*newModel, view);
-      model = std::move(newModel);
-      panel::playModel = false;
-      multSteps = false;
-      multSteps3 = false;
-    }
+    //if (panel::loadParticleModel) {
+    //  auto newModel = std::make_unique<ParticleModel>();
+    //  modelRenderable = makeModelRenderable(*newModel, view);
+    //  model = std::move(newModel);
+    //  panel::playModel = false;
+    //  multSteps = false;
+    //  multSteps3 = false;
+    //}
 
     if (panel::loadMassSpring1Model) {
         auto newModel = std::make_unique<MassSpring1Model>();
@@ -120,6 +120,7 @@ int main(void) {
         panel::playModel = false;
         multSteps = true;
         multSteps3 = false;
+        panel::dt = 0.004f;
     }
 
     if (panel::loadMassSpring2Model) {
@@ -129,6 +130,7 @@ int main(void) {
         panel::playModel = false;
         multSteps = true;
         multSteps3 = false;
+        panel::dt = 0.004f;
     }
 
     if (panel::loadMassSpring3Model) {
@@ -138,6 +140,7 @@ int main(void) {
         panel::playModel = false;
         multSteps = false;
         multSteps3 = true;
+        panel::dt = 0.002f;
     }
 
     if (panel::loadMassSpring4Model) {
@@ -147,6 +150,7 @@ int main(void) {
         panel::playModel = false;
         multSteps = true;
         multSteps3 = false;
+        panel::dt = 0.004f;
     }
 
     if (panel::resetModel) {
